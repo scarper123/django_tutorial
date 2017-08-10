@@ -28,4 +28,28 @@
     1) If DEBUG mode is set to True then Django template system will throw TemplateDoesNotExist exception.
     2) If DEBUG is set to False then it will fail silently displaying nothing in the place of include tag.
 
-Study Link: https://overiq.com/django/1.10/template-inheritance-in-django/
+7. Model
+    A Model defines essential fields and behaviors of the data you are storing. In simple words a Model allows us to do following things:
+    1) Create tables and define relationship between them.
+    2) Modify tables and relationship between them.
+    3) Access data stored in tables using Django ORM (without creating raw SQL queries).
+
+8. Model define
+    Django automatically adds a primary key field called id for all models, so you don't need to define it manually
+    1) Creating one-to-many relationship is simple, just add ForeignKey to the many sides of the relationship (i.e posts) and pass the name of the model you want to connect as a first parameter to ForeignKey constructor.
+    2) To create many-to-many relationship add ManyToManyField field to any one side of the realtionship i.e you can add ManyToManyField to either in Tag model or Post model. 
+
+9. Migrations in Django
+    Migration is way to create or alter tables in the database. In Django the common workflow of working with models is as follows:
+    1) Create or change models in models.py file.
+    2) Create migration file.
+    3) Commit changes to the database using the migration file created in step 2.
+
+    command:
+        1) python manage.py check
+        2) python manage.py makemigrations blog
+        3) python manage.py sqlmigrate blog 0001
+        4) python manage.py migrate
+
+
+Study Link: https://overiq.com/django/1.10/accessing-related-data-using-django-orm/

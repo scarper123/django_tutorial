@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Current Time</title>
-</head>
-<body>
-	{% include nav %}
+{% extends "base.html" %}
 
+{% block title %}
+    Title for blog
+{% endblock title %}
+
+{% block content %}
     {# This is a comment #}
 
     {# check the existence of now variable in the template using if tag #}
@@ -17,5 +15,11 @@
         <p>now variable is not available</p>
     {% endif %}
 
-</body>
-</html>
+    <p>Current scheme: {{ request.scheme }}</p>
+
+{% endblock content %}
+
+{% block footer %}
+    {{ block.super }}
+    <p>All rights reserved</p>
+{% endblock footer %}

@@ -2,8 +2,6 @@ import datetime
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from django import template
-from django.shortcuts import render_to_response, render
 
 # Create your views here.
 
@@ -23,5 +21,5 @@ def today_is(request):
 
     # return HttpResponse(html)
 
-    return render(request, 'blog/datetime.html',
-    	{"now": now, "nav": "blog/nav.html"})
+    return render(request, 'blog/datetime.html', 
+        {"now": now, "nav": "blog/nav.html"})
