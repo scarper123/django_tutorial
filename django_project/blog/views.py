@@ -1,7 +1,6 @@
-import datetime
-
 from django.shortcuts import render
 from django.http import HttpResponse
+from blog.models import Author, Tag, Category, Post
 
 # Create your views here.
 
@@ -10,16 +9,33 @@ def index(request):
     return HttpResponse("Hello Django")
 
 
-def today_is(request):
-    now = datetime.datetime.now()
-    # html = template.Template(
-    #     '<html><body>Current date and time: {{ now|date:"Y" }}</body></html>')
-    # html = template.loader.get_template('blog/datetime.html')
-    # content = template.Context({"now": now})
+def post_list(request):
+    posts = Post.objects.all()
+    return render(request, 'blog/post_list.html', {"posts": posts})
 
-    # html = html.render({"now": now})
 
-    # return HttpResponse(html)
+def post_detail(request, pid):
+    post = Post.objects.get(id=pid)
+    return render(request, 'blog/post_detail.html', {"post": post})
 
-    return render(request, 'blog/datetime.html', 
-        {"now": now, "nav": "blog/nav.html"})
+
+def posts_by_category(request, category_slug):
+    category = Category.objects.get(slug=category_slug)
+    posts = Post.objects.filter(category__slug=category_slug)
+    context = {
+        'category': category,
+        'posts': posts
+    }
+
+    return render(request, 'blog/post_by_category.html', context)
+
+
+def posts_by_tag(request, tag_slug):
+    tag = Tag.objects.get(slug=tag_slug)
+    posts = Post.objects.filter(tags__name=tag)
+    context = {
+        'tag': tag,
+        'posts': posts
+    }
+
+    return render(request, 'blog/post_by_tag.html', context)

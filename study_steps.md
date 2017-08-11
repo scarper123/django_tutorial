@@ -52,4 +52,4 @@
         4) python manage.py migrate
 
 
-Study Link: https://overiq.com/django/1.10/accessing-related-data-using-django-orm/
+Study Link: https://overiq.com/django/1.10/creating-urls-in-django/

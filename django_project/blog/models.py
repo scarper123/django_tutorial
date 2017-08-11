@@ -7,11 +7,13 @@ class ModelMixin(object):
     """docstring for ModelMin"""
 
     def __str__(self):
-        print("ModelMixin call")
-        return str(self.__dict__)
+        try:
+            return self.name
+        except Exception:
+            return self.title
 
 
-class Author(models.Model, ModelMixin):
+class Author(ModelMixin, models.Model):
     """docstring for Author"""
     name = models.CharField(max_length=100, unique=True)
     email = models.EmailField(unique=True)
@@ -20,19 +22,19 @@ class Author(models.Model, ModelMixin):
     last_logged_in = models.DateTimeField(auto_now_add=True)
 
 
-class Category(models.Model):
+class Category(ModelMixin, models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.CharField(max_length=100, unique=True)
     author = models.ForeignKey(Author)
 
 
-class Tag(models.Model):
+class Tag(ModelMixin, models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.CharField(max_length=100, unique=True)
     author = models.ForeignKey(Author)
 
 
-class Post(models.Model):
+class Post(ModelMixin, models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     content = models.TextField()
