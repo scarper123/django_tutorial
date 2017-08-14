@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -12,6 +13,9 @@ class ModelMixin(object):
         except Exception:
             return self.title
 
+    def get_absolute_url(self):
+        raise NotImplementedError
+
 
 class Author(ModelMixin, models.Model):
     """docstring for Author"""
@@ -21,17 +25,26 @@ class Author(ModelMixin, models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     last_logged_in = models.DateTimeField(auto_now_add=True)
 
+    def get_absolute_url(self):
+        return reverse('post_by_author', args=[self.name])
+
 
 class Category(ModelMixin, models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.CharField(max_length=100, unique=True)
     author = models.ForeignKey(Author)
 
+    def get_absolute_url(self):
+        return reverse('post_by_category', args=[self.slug])
+
 
 class Tag(ModelMixin, models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.CharField(max_length=100, unique=True)
     author = models.ForeignKey(Author)
+
+    def get_absolute_url(self):
+        return reverse('post_by_tag', args=[self.slug])
 
 
 class Post(ModelMixin, models.Model):
@@ -42,3 +55,6 @@ class Post(ModelMixin, models.Model):
     author = models.ForeignKey(Author)
     category = models.ForeignKey(Category)
     tags = models.ManyToManyField(Tag)
+
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[self.id])

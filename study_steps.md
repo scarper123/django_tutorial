@@ -45,11 +45,24 @@
     2) Create migration file.
     3) Commit changes to the database using the migration file created in step 2.
 
+10. Url for template and python code
+    1) Template use "{% url "name_of_url_pattern" arg1 arg2 %}"
+    2) python code use "reverse(name_of_url_pattern, arg1, arg2)"
+    3) common use "get_absolute_url" in template and python code, and it recommand by django.
+        a) implement function in the model's class.
+        b) use template call or python code call
+
     command:
         1) python manage.py check
         2) python manage.py makemigrations blog
         3) python manage.py sqlmigrate blog 0001
         4) python manage.py migrate
+
+11. Form Basic
+    1) Form states
+        a) Unbound state
+        b> Bound state
+    2) Accessing cleaned data
 
 
 Study Link: https://overiq.com/django/1.10/creating-urls-in-django/

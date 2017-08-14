@@ -63,4 +63,4 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Category, CategoryAdmin)
 admin.site.register(models.Author, AuthorAdmin)
-admin.site.register(models.Tag)
+admin.site.register(models.Tag, TagAdmin)

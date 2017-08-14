@@ -11,16 +11,7 @@
 
     <h1>{{ post.title|capfirst }}</h1>
     <p class="post-info">
-        Date: {{ post.pub_date }} |
-        Category: <a href="http://127.0.0.1:8000/blog/category/{{ post.category.slug }}">{{ post.category.name }}</a> |
-        Tags:
-        {% for tag in post.tags.all %}
-              <a href="http://127.0.0.1:8000/blog/tag/{{ tag.slug }}">{{ tag.name }}</a>
-        {% empty %}
-              None
-        {% endfor %}
-
-        | Author: {{ post.author.name }}
+        {% include "blog/post_info.html" %}
     </p>
     <p>
         {{ post.content }}
