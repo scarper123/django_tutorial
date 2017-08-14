@@ -65,4 +65,4 @@
     2) Accessing cleaned data
 
 
-Study Link: https://overiq.com/django/1.10/creating-urls-in-django/
+Study Link: https://overiq.com/django/1.10/django-form-basics/
