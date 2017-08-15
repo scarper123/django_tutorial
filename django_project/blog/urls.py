@@ -17,4 +17,5 @@ urlpatterns = [
         views.posts_by_tag, name='post_by_tag'),
     url(r'^author/(?P<author_name>[\w-]+)/$',
         views.posts_by_author, name='post_by_author'),
+    url(r'^feedback/$', views.feedback, name='feedback'),
 ]

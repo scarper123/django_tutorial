@@ -64,5 +64,7 @@
         b> Bound state
     2) Accessing cleaned data
 
+12. Form and ModelForm
+    1) ModelForm allows to connect a Form class to the Model class.
 
-Study Link: https://overiq.com/django/1.10/django-form-basics/
+Study Link: https://overiq.com/django/1.10/building-contact-us-page/

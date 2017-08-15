@@ -60,7 +60,23 @@ class TagAdmin(admin.ModelAdmin):
     search_fields = ('name', 'slug',)
 
 
+class FeedbackAdmin(admin.ModelAdmin):
+    '''
+        Admin View for Feedback
+    '''
+    # fields = ('name', 'email', 'subject')
+    list_display = ('name', 'email', 'subject')
+    # list_filter = ('',)
+    # inlines = [
+    #     Inline,
+    # ]
+    # raw_id_fields = ('',)
+    # readonly_fields = ('',)
+    search_fields = ('name', 'email', 'subject')
+
+
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Category, CategoryAdmin)
 admin.site.register(models.Author, AuthorAdmin)
 admin.site.register(models.Tag, TagAdmin)
+admin.site.register(models.Feedback, FeedbackAdmin)

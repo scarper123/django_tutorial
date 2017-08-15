@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.http import HttpResponse
 from blog.models import Author, Tag, Category, Post
-
+from blog import forms
 # Create your views here.
 
 
@@ -56,3 +56,17 @@ def posts_by_author(request, author_name):
         'posts': posts
     }
     return render(request, 'blog/post_by_author.html', context)
+
+
+def feedback(request):
+    if request.method == "POST":
+        f = forms.FeedbackForm(request.POST)
+        if f.is_valid():
+            f.save()
+
+            return redirect('feedback')
+
+    else:
+        f = forms.FeedbackForm()
+
+    return render(request, 'blog/feedback.html', {'form': f})
