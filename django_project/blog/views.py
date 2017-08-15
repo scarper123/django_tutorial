@@ -1,7 +1,11 @@
+from django.contrib import messages
+from django.core.mail import mail_admins
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.http import HttpResponse
 from blog.models import Author, Tag, Category, Post
 from blog import forms
+
+
 # Create your views here.
 
 
@@ -62,7 +66,21 @@ def feedback(request):
     if request.method == "POST":
         f = forms.FeedbackForm(request.POST)
         if f.is_valid():
-            f.save()
+            name = f.cleaned_data['name']
+            sender = f.cleaned_data['email']
+            subject = "You have a new Feedback from {}:{}".format(name, sender)
+            message = "Subject: {}\n\nMessage: {}".format(
+                f.cleaned_data['subject'], f.cleaned_data['message'])
+            try:
+                mail_admins(subject, message)
+                f.save()
+                print("success")
+                messages.add_message(
+                    request, messages.SUCCESS, 'Feedback sent!')
+            except Exception:
+                print("failed")
+                messages.add_message(request, messages.INFO,
+                                     'Unable to send feedback. Try agian')
 
             return redirect('feedback')
 

@@ -73,3 +73,6 @@ class Feedback(ModelMixin, models.Model):
 
     def __str__(self):
         return self.name + '-' + self.email
+
+    def get_absolute_url(self):
+        return reverse('feedback')
