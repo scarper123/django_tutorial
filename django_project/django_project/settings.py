@@ -25,7 +25,7 @@ SECRET_KEY = '+x8_o2i0dd7m)jbr7dvezwj(@9rhsc@ki5+br0ff^-mm@bg&^a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -123,14 +123,21 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# static files directory
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static_sitewide'),)
+
+# Media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'site_media')
+MEDIA_URL = '/media/'
+
 # Email settings
 SERVER_EMAIL = 'test@qq.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.qq.com'
+EMAIL_HOST = 'smtp.263.net'
 EMAIL_HOST_PASSWORD = 'password'
 EMAIL_HOST_USER = SERVER_EMAIL
-EMAIL_PORT = 465
+EMAIL_PORT = 25
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-ADMINS = [('admin_receive', 'admin@qq.com'), ]
+ADMINS = [('test', 'test@qq.com'), ]

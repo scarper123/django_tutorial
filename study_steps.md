@@ -67,4 +67,10 @@
 12. Form and ModelForm
     1) ModelForm allows to connect a Form class to the Model class.
 
-Study Link: https://overiq.com/django/1.10/building-contact-us-page/
+13. Static files
+
+14. Cookie and Session
+    1) Cookie communication between browser and server, and data sensitive.
+    2) Session save data in server, and use cookie sessionid communication with browser.
+
+Study Link: https://overiq.com/django/1.10/django-authentication-framework-basics/

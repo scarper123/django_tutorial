@@ -7,11 +7,21 @@ import pprint
 import django
 django.setup()
 from django.test import TestCase, Client
+from django.core.paginator import Paginator, EmptyPage
+from django.contrib.sessions.models import Session
 
 from blog.forms import AuthorForm
 from blog import models
 
 # Create your tests here.
+
+
+class Mixin(object):
+    """docstring for Mixin"""
+
+    def __init__(self, arg):
+        super(Mixin, self).__init__()
+        self.arg = arg
 
 
 class AuthorFormTest(TestCase):
@@ -59,9 +69,49 @@ class ModelTest(TestCase):
         print(posts)
 
 
+class PaginatorTest(TestCase):
+    """docstring for PaginatorTest"""
+
+    def __init__(self, case_name=None, *args, **kwargs):
+        super(PaginatorTest, self).__init__(case_name)
+
+    def test_paginator(self):
+        paginator = Paginator(models.Post.objects.all(), 5)
+        print(getattr(models.Post.objects.all(), 'ordered', None))
+        print(paginator.count)
+        print(paginator.num_pages)
+
+        page1 = paginator.page(1)
+        print(page1.object_list)
+        with self.assertRaises(EmptyPage):
+            page2 = paginator.page(paginator.num_pages + 1)
+
+
+class SessionTest(TestCase):
+    """docstring for SessionTest"""
+
+    def __init__(self, case_name=None, *args, **kwargs):
+        super(SessionTest, self).__init__(case_name)
+
+        self.client = Client()
+
+    def test_save_session(self):
+        response = self.client.get(
+            'http://127.0.0.1:8000/blog/save-session-data/')
+        print(response.content)
+        print(response.cookies)
+
+        self.test_query_session()
+
+    def test_query_session(self):
+        sessions = Session.objects.all()
+        for session in sessions:
+            pprint.pprint(session)
+
+
 if __name__ == '__main__':
     # unittest.main()
     runner = unittest.TextTestRunner()
     suite = unittest.TestSuite()
-    suite.addTest(AuthorFormTest("test_form_print"))
+    suite.addTest(SessionTest("test_query_session"))
     runner.run(suite)

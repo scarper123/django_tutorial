@@ -11,6 +11,8 @@
 
     <h2>All the posts under category - {{ category.name }}</h2>
 
+    {% include "blog/post_nav.html" %}
+
     {% for post in posts %}
         <h3>
             <a href="{{ post.get_absolute_url }}">{{ post.title|capfirst }}</a>
