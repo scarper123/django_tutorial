@@ -9,6 +9,7 @@ django.setup()
 from django.test import TestCase, Client
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
 
 from blog.forms import AuthorForm
 from blog import models
@@ -109,9 +110,26 @@ class SessionTest(TestCase):
             pprint.pprint(session)
 
 
+class DjangoUserTest(TestCase):
+    """docstring for DjangoUserTest"""
+
+    def __init__(self, case_name=None, *args, **kwargs):
+        super(DjangoUserTest, self).__init__(case_name)
+
+    def test_user_create(self):
+        nosiyboy = User.objects.create_user(
+            'nosiyboy', 'nosiyboy@email.com', 'password')
+        pprint.pprint(nosiyboy.__dict__)
+        pprint.pprint(nosiyboy._password)
+
+    def test_user_filter(self):
+        for user in User.objects.values():
+            pprint.pprint(user)
+
+
 if __name__ == '__main__':
     # unittest.main()
     runner = unittest.TextTestRunner()
     suite = unittest.TestSuite()
-    suite.addTest(SessionTest("test_query_session"))
+    suite.addTest(DjangoUserTest("test_user_filter"))
     runner.run(suite)

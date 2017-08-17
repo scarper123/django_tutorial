@@ -31,4 +31,7 @@ urlpatterns = [
     url(r'^lousy-login/$', views.lousy_login, name='lousy_login'),
     url(r'^lousy-secret/$', views.lousy_secret, name='lousy_secret'),
     url(r'^lousy-logout/$', views.lousy_logout, name='lousy_logout'),
+    url(r'^login/$', views.login, name='login'),
+    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^admin_page/$', views.admin_page, name='admin_page'),
 ]
