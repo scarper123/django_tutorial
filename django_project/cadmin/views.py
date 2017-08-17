@@ -1,6 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 from blog.forms import PostForm
 from blog import models
+
 
 # Create your views here.
 
@@ -31,4 +34,15 @@ def post_update(request, pid):
         f = PostForm(instance=post)
 
     return render(request, 'cadmin/post_update.html',
-        {'form': f, 'post': post})
+                  {'form': f, 'post': post})
+
+
+def login(request, **kwargs):
+    if request.user.is_authenticated():
+        return redirect(reverse('home'))
+    return auth_views.login(request, **kwargs)
+
+
+@login_required
+def home(request):
+    return render(request, 'blog/admin_page.html')

@@ -73,4 +73,4 @@
     1) Cookie communication between browser and server, and data sensitive.
     2) Session save data in server, and use cookie sessionid communication with browser.
 
-Study Link: https://overiq.com/django/1.10/django-authentication-framework-basics/
+Study Link: https://overiq.com/django/1.10/django-password_change-view/
