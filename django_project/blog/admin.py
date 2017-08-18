@@ -7,15 +7,16 @@ class AuthorAdmin(admin.ModelAdmin):
     '''
         Admin View for Author
     '''
-    list_display = ('name', 'email', 'created_on')
-    list_filter = ('active',)
+    # list_display = ('name', 'email', 'created_on')
+    # list_filter = ('active',)
     # inlines = [
     #     Inline,
     # ]
     # raw_id_fields = ('',)
     # readonly_fields = ('',)
-    search_fields = ('name', 'email')
-    date_hierarchy = 'created_on'
+    # search_fields = ('name', 'email')
+    # date_hierarchy = 'created_on'
+    list_display = ('user',)
 
 
 class CategoryAdmin(admin.ModelAdmin):

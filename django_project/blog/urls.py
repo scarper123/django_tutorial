@@ -6,7 +6,15 @@
 # @Version : $Id$
 
 from django.conf.urls import url
+from django.contrib.flatpages import views as flat_views
+from django.contrib.sitemaps.views import sitemap
 from blog import views
+from blog.sitemaps import PostSitMap
+
+
+sitemaps = {
+    'posts': PostSitMap
+}
 
 urlpatterns = [
     url(r'^$', views.post_list, name='post_list'),
@@ -34,4 +42,7 @@ urlpatterns = [
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^admin_page/$', views.admin_page, name='admin_page'),
+    url(r'^about/$', flat_views.flatpage, {'url': '/about/'}, name='about'),
+    url(r'^eula/$', flat_views.flatpage, {'url': '/eula/'}, name='eula'),
+    url(r'^sitemap\.xml/$', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
 ]

@@ -17,4 +17,11 @@ urlpatterns = [
         kwargs={'template_name': 'cadmin/login.html'}, name='auth_login'),
     url(r'^accounts/logout/$', auth_views.logout,
         kwargs={'template_name': 'cadmin/logout.html'}, name='auth_logout'),
+    url(r'^password-change-done/$', auth_views.password_change_done,
+        name='password_change_done'),
+    url(r'^password-change/$', auth_views.password_change,
+        kwargs={'post_change_redirect': 'password_change_done'},
+        name='password_change'),
+    url(r'^register/$', views.register, name='register'),
+    url(r'^activate-account/$', views.activate_account, name='activate_account'),
 ]

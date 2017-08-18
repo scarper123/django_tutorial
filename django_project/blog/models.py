@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -19,14 +20,23 @@ class ModelMixin(object):
 
 class Author(ModelMixin, models.Model):
     """docstring for Author"""
-    name = models.CharField(max_length=100, unique=True)
-    email = models.EmailField(unique=True)
-    active = models.BooleanField(default=False)
-    created_on = models.DateTimeField(auto_now_add=True)
-    last_logged_in = models.DateTimeField(auto_now_add=True)
+    # name = models.CharField(max_length=100, unique=True)
+    # email = models.EmailField(unique=True)
+    # active = models.BooleanField(default=False)
+    # created_on = models.DateTimeField(auto_now_add=True)
+    # last_logged_in = models.DateTimeField(auto_now_add=True)
+    user = models.OneToOneField(User, null=True, blank=True)
+
+    # additional fields
+    phone = models.IntegerField(blank=True, default=1)
+    activation_key = models.CharField(default=1, max_length=255)
+    email_validated = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
 
     def get_absolute_url(self):
-        return reverse('post_by_author', args=[self.name])
+        return reverse('post_by_author', args=[self.user.username])
 
 
 class Category(ModelMixin, models.Model):
