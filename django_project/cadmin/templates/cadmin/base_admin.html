@@ -16,10 +16,24 @@
     <div class="content">
         <div>
             {% if messages %}
-                {% for message in messages %}
-                    <span>{{ message }}</span>
-                {% endfor %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
             {% endif %}
+        </div>
+        <div class="sidebar">
+            <ul>
+                <li><a href="{% url 'post_list' %}">Post</a></li>
+                <li><a href="{% url 'category_list' %}">Category</a></li>
+                <li><a href="{% url 'tag_list' %}">Tag</a></li>
+                <li><a href="{% url 'account_info' %}">Account Info</a></li>
+                <li><a href="{% url 'password_change' %}">Change Password</a></li>
+                <li><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}">View Site</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li></li>
+            </ul>
         </div>
         <div class="section-inner">
 

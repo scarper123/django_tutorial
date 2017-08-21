@@ -219,9 +219,9 @@ def category_delete(request, cid):
 @login_required
 def tag_list(request):
     if request.user.is_superuser:
-        tag_list = get_list_or_404(models.Tag)
+        tag_list = models.Tag.objects.all()
     else:
-        tag_list = get_list_or_404(models.Tag, author__user__username=request.user.username)
+        tag_list = models.Tag.objects.filter(author__user__username=request.user.username)
     tags = helpers.pg_records(request, tag_list)
     return render(request, 'cadmin/tag_list.html', {'tags': tags})
 
@@ -230,6 +230,26 @@ def tag_list(request):
 def tag_add(request):
     if request.method == "POST":
         f = TagForm(request.POST)
+        if f.is_valid():
+            if request.POST.get("author") == "" and request.user.is_superuser:
+                # if no author choose and user is super user, add default username with staff as this tag author
+                new_tag = f.save(False)
+                author = get_object_or_404(models.Author, user__username='staff')
+                new_tag.author = author
+                new_tag.save()
+                f.save_m2m()
+            elif request.POST.get('author') and request.user.is_superuser:
+                # if user is superuser and choose author, save default
+                f.save()
+            else:
+                # user is not superuser and add tag
+                new_tag = f.save(False)
+                author = get_object_or_404(models.Author, user__username=request.user.username)
+                new_tag.author = author
+                new_tag.save()
+                f.save_m2m()
+            return redirect('tag_list')
+
     else:
         f = TagForm()
     return render(request, 'cadmin/tag_add.html', {"form": f})
@@ -237,9 +257,25 @@ def tag_add(request):
 
 @login_required
 def tag_update(request, tid):
-    return None
+    tag = get_object_or_404(models.Tag, id=tid)
+    if request.method == "POST":
+        f = TagForm(request.POST, instance=tag)
+        if f.is_valid():
+            f.save()
+            return redirect('tag_list')
+    else:
+        f = TagForm(instance=tag)
+    return render(request, 'cadmin/tag_update.html', {"form": f})
 
 
 @login_required
 def tag_delete(request, tid):
-    return None
+    tag = get_object_or_404(models.Tag, id=tid)
+    tag.delete()
+    messages.add_message(request, messages.INFO, "Delete tag %s succeed." % tag.name)
+    return redirect('tag_list')
+
+
+@login_required
+def account_info(request):
+    return render(request, 'cadmin/account_info.html')

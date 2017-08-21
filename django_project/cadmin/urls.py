@@ -12,6 +12,7 @@ from cadmin import views
 
 urlpatterns = [
     url(r'^$', views.post_list, name='post_list'),
+    url(r'^post/$', views.post_list, name='post_list'),
     url(r'^post/add/$', views.post_add, name='post_add'),
     url(r'^post/delete/(?P<pid>\d+)/$', views.post_delete, name='post_delete'),
     url(r'^post/update/(?P<pid>\d+)/$', views.post_update, name='post_update'),
@@ -22,8 +23,10 @@ urlpatterns = [
 
     url(r'^tag/$', views.tag_list, name='tag_list'),
     url(r'^tag/add/$', views.tag_add, name='tag_add'),
-    url(r'^tag/update/(?P<cid>\d+)/$', views.tag_update, name='tag_update'),
-    url(r'^tag/delete/(?P<cid>\d+)/$', views.tag_delete, name='tag_delete'),
+    url(r'^tag/update/(?P<tid>\d+)/$', views.tag_update, name='tag_update'),
+    url(r'^tag/delete/(?P<tid>\d+)/$', views.tag_delete, name='tag_delete'),
+
+    url(r'^account-info/$', views.account_info, name='account_info'),
 
     url(r'^accounts/login/$', views.login,
         kwargs={'template_name': 'cadmin/login.html'}, name='auth_login'),

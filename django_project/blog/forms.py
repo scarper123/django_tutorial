@@ -57,6 +57,9 @@ class AuthorForm(forms.ModelForm):
 
 
 class TagForm(forms.ModelForm):
+    author = forms.ModelChoiceField(queryset=models.Author.objects.all(),
+                                    required=False)
+
     class Meta:
         model = models.Tag
         fields = '__all__'

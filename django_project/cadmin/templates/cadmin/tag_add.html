@@ -1,0 +1,43 @@
+{% extends 'cadmin/base_admin.html' %}
+{% block title %}
+    Add Tag -- {{ block.super }}
+{% endblock %}
+
+{% block main %}
+    <h3>Add Tag</h3>
+    <p>
+        {{ form.non_field_errors }}
+    </p>
+    <form action="{% url 'tag_add' %}" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ form.name.label_tag }}
+                <td>
+                    {{ form.name.errors }}
+                    {{ form.name }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form.slug.label_tag }}</td>
+                <td>
+                    {{ form.slug.errors }}
+                    {{ form.slug }}
+                </td>
+            </tr>
+            {% if request.user.is_superuser %}
+                <tr>
+                    <td>{{ form.author.label_tag }}</td>
+                    <td>
+                        {{ form.author.errors }}
+                        {{ form.author }}
+                    </td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Add Tag"></td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}
