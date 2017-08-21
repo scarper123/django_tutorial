@@ -1,13 +1,14 @@
+from django.contrib import auth
 from django.contrib import messages
 from django.core.mail import mail_admins
-from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.http import HttpResponse
-from django.contrib import auth
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 
-from blog.models import Author, Tag, Category, Post
 from blog import forms
+from blog.models import Author, Tag, Category, Post
 from django_project import helpers
-import pprint
+
+
 # Create your views here.
 
 
@@ -59,7 +60,8 @@ def posts_by_tag(request, tag_slug):
 def posts_by_author(request, author_name):
     # author = Author.objects.get(name=author_name)
     # posts = Post.objects.filter(author__name=author_name)
-    author = get_object_or_404(Author, name=author_name)
+    user = get_object_or_404(auth.models.User, username=author_name)
+    author = get_object_or_404(Author, user=user)
     post_list = get_list_or_404(Post.objects.order_by("-id"), author=author)
     posts = helpers.pg_records(request, post_list)
     context = {
@@ -130,7 +132,6 @@ def save_session_data(request):
 
 
 def access_session_data(request):
-
     response = ""
     if request.session.get('id'):
         response += "Id : {0} <br>".format(request.session.get('id'))
@@ -147,7 +148,6 @@ def access_session_data(request):
 
 
 def delete_session_data(request):
-
     try:
         del request.session['id']
         del request.session['name']

@@ -8,6 +8,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import slugify
+
 from blog import models
 
 
@@ -72,6 +73,8 @@ class TagForm(forms.ModelForm):
 
 
 class CategoryForm(forms.ModelForm):
+    author = forms.ModelChoiceField(queryset=models.Author.objects.all(),
+                                    required=False)
 
     class Meta:
         model = models.Category
@@ -88,6 +91,8 @@ class CategoryForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
+    author = forms.ModelChoiceField(queryset=models.Author.objects.all(),
+                                    required=False)
 
     class Meta:
         model = models.Post
@@ -105,7 +110,7 @@ class PostForm(forms.ModelForm):
         title = cleaned_data.get('title')
         # if title exists create slug from title
         if title:
-            self.slug = slugify(title)
+            self.instance.slug = slugify(title)
 
         return cleaned_data
 

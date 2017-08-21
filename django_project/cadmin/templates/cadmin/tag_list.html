@@ -1,0 +1,41 @@
+{% extends 'cadmin/base_admin.html' %}
+{% block title %}
+    Tag List -- {{ block.super }}
+{% endblock %}
+{% block main %}
+    <p class="button"><a href="{% url 'tag_add' %}">Add Tag</a></p>
+    {% for tag in tags %}
+        <table>
+            {% if forloop.first %}
+                <tr>
+                    <th>Name</th>
+                    <th>Slug</th>
+                    <th>Author</th>
+                    <th>Action</th>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>{{ tag.name }}</td>
+                <td>{{ tag.slug }}</td>
+                <td>{{ tag.author }}</td>
+                <td><a href="{% url 'tag_update' tag.id %}">Update</a>|
+                    <a href="{% url 'tag_delete' tag.id %}">Delete</a></td>
+            </tr>
+        </table>
+    {% empty %}
+        No tags
+    {% endfor %}
+
+    {% if tags %}
+        {% if tags.has_previous %}
+            <a href="?page={{ tags.previous_page_number }}"></a>
+        {% endif %}
+        {% if tags.has_next %}
+            <a href="?page={{ tags.next_page_number }}"></a>
+        {% endif %}
+
+        <span>Page {{ tags.number }} of {{ tags.paginator.num_pages }}</span>
+
+    {% endif %}
+
+{% endblock %}
