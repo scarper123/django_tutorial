@@ -1,4 +1,4 @@
-{% extends "blog/base.html"  %}
+{% extends "blog/base.html" %}
 
 {% block title %}
     {{ post.title|capfirst }} - {{ block.super }}
@@ -9,16 +9,16 @@
     <div class="content">
         <div class="section-inner clearfix">
 
-    <h1>{{ post.title|capfirst }}</h1>
-    <p class="post-info">
-        {% include "blog/post_info.html" %}
-        | <span><a href="{% url 'post_update' post.id %}">Edit</a></span>
-    </p>
-    <p>
-        {{ post.content }}
-    </p>
+            <h1>{{ post.title|capfirst }}</h1>
+            <p class="post-info">
+                {% include "blog/post_info.html" %}
+                | <span><a href="{% url 'post_update' post.id %}">Edit</a></span>
+            </p>
+            <p>
+                {{ post.content|safe }}
+            </p>
 
-            </div>
+        </div>
     </div>
 
 {% endblock %}

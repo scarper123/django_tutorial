@@ -29,33 +29,34 @@
 
     <form action="{% url 'post_add' %}" method="post">
         {% csrf_token %}
+        {{ form.media }}
         <table>
             <tr>
-                <td>{{form.title.label_tag}}</td>
+                <td>{{ form.title.label_tag }}</td>
                 <td>
-                    {{form.title.errors}}
-                    {{form.title}}
+                    {{ form.title.errors }}
+                    {{ form.title }}
                 </td>
             </tr>
             <tr>
-                <td>{{form.content.label_tag}}</td>
+                <td>{{ form.content.label_tag }}</td>
                 <td>
-                    {{form.content.errors}}
-                    {{form.content}}
+                    {{ form.content.errors }}
+                    {{ form.content }}
                 </td>
             </tr>
             <tr>
-                <td>{{form.category.label_tag}}</td>
+                <td>{{ form.category.label_tag }}</td>
                 <td>
-                    {{form.category.errors}}
-                    {{form.category}}
+                    {{ form.category.errors }}
+                    {{ form.category }}
                 </td>
             </tr>
             <tr>
-                <td>{{form.tags.label_tag}}</td>
+                <td>{{ form.tags.label_tag }}</td>
                 <td>
-                    {{form.tags.errors}}
-                    {{form.tags}}
+                    {{ form.tags.errors }}
+                    {{ form.tags }}
                 </td>
             </tr>
 
@@ -78,6 +79,6 @@
 
         </table>
     </form>
-    
+
 
 {% endblock %}

@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'ckeditor',
+    'ckeditor_uploader',
     'blog',
     'cadmin',
     'dashboard',
@@ -141,3 +143,18 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ADMINS = [('test', 'test@qq.com'), ]
 
 LOGIN_URL = 'auth_login'
+
+####################################
+##  CKEDITOR CONFIGURATION ##
+####################################
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}

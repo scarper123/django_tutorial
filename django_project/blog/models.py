@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-
+from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 
 
@@ -60,7 +60,8 @@ class Tag(ModelMixin, models.Model):
 class Post(ModelMixin, models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
-    content = models.TextField()
+    # content = models.TextField()
+    content = RichTextUploadingField()
     pub_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author)
     category = models.ForeignKey(Category)
